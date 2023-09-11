@@ -1,3 +1,6 @@
+using Microsoft.Data.SqlClient;
+using System.Data;
+
 namespace InfoSN
 {
 	public class Program
@@ -9,7 +12,12 @@ namespace InfoSN
 			// Add services to the container.
 			builder.Services.AddControllersWithViews();
 
+			string? connectionString = builder.Configuration["SecretSQLServerConnectionString"];
+			builder.Services.AddTransient<IDbConnection>(db => new SqlConnection(connectionString));
+
 			var app = builder.Build();
+
+
 
 			// Configure the HTTP request pipeline.
 			if (!app.Environment.IsDevelopment())

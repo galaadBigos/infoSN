@@ -1,5 +1,6 @@
 ﻿using InfoSN.Models;
 using Microsoft.AspNetCore.Mvc;
+using System.Data;
 using System.Diagnostics;
 
 namespace InfoSN.Controllers
@@ -7,14 +8,30 @@ namespace InfoSN.Controllers
 	public class HomeController : Controller
 	{
 		private readonly ILogger<HomeController> _logger;
+		private readonly IDbConnection _dbConnection;
 
-		public HomeController(ILogger<HomeController> logger)
+		public HomeController(ILogger<HomeController> logger, IDbConnection dbConnection)
 		{
 			_logger = logger;
+			_dbConnection = dbConnection;
 		}
 
 		public IActionResult Index()
 		{
+			_dbConnection.Open();
+
+			IDbCommand cmd = _dbConnection.CreateCommand();
+			cmd.CommandText = "SELECT * FROM [User]";
+			IDataReader reader = cmd.ExecuteReader();
+			string id;
+			string username;
+			while (reader.Read())
+			{
+				id = reader.GetString(0);
+				username = reader.GetString(1);
+
+			}
+
 			return View();
 		}
 
