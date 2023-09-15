@@ -1,10 +1,18 @@
 ﻿using InfoSN.Models.ViewModel.Accounts;
+using InfoSN.Services.Abstractions;
 using Microsoft.AspNetCore.Mvc;
 
 namespace InfoSN.Controllers
 {
     public class AccountController : Controller
     {
+        private readonly IUserService _userService;
+
+        public AccountController(IUserService userService)
+        {
+            _userService = userService;
+        }
+
         [HttpGet]
         public IActionResult Register()
         {
@@ -20,9 +28,8 @@ namespace InfoSN.Controllers
             {
                 if (model.Password == model.ConfirmPassword)
                 {
-
-
-
+                    _userService.PostRegisterVM(model);
+                    return RedirectToAction("Index", "Home");
                 }
                 else
                 {

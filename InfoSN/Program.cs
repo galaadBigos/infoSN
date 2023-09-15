@@ -1,3 +1,10 @@
+using InfoSN.Managers;
+using InfoSN.Managers.Abstractions;
+using InfoSN.Options;
+using InfoSN.Repositories;
+using InfoSN.Repositories.Abstractions;
+using InfoSN.Services;
+using InfoSN.Services.Abstractions;
 using Microsoft.Data.SqlClient;
 using System.Data;
 
@@ -12,8 +19,16 @@ namespace InfoSN
             // Add services to the container.
             builder.Services.AddControllersWithViews();
 
+            builder.Services.AddOptions();
+            builder.Services.Configure<PasswordHasherOptions>(builder.Configuration.GetSection("PasswordHasher"));
+
+            builder.Services.AddScoped<IUserService, UserService>();
+            builder.Services.AddScoped<IUserRepository, UserRepository>();
+            builder.Services.AddScoped<IAccountManager, AccountManager>();
+
             string? connectionString = builder.Configuration["SecretSQLServerConnectionString"];
             builder.Services.AddTransient<IDbConnection>(db => new SqlConnection(connectionString));
+
 
             var app = builder.Build();
 

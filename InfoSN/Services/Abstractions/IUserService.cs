@@ -4,6 +4,6 @@ namespace InfoSN.Services.Abstractions
 {
     public interface IUserService
     {
-        public void PostUser(RegisterVM model);
+        public void PostRegisterVM(RegisterVM model);
     }
 }
