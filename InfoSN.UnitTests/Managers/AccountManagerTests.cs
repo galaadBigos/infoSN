@@ -1,21 +1,20 @@
-﻿using AutoFixture;
-using InfoSN.Managers;
+﻿using InfoSN.Managers;
 using InfoSN.Managers.Abstractions;
 using InfoSN.Options;
 using Microsoft.Extensions.Options;
-using Moq;
 
 namespace InfoSN.UnitTests.Managers
 {
     public class AccountManagerTests
     {
         private Fixture _fixture = new Fixture();
-        private Mock<IOptions<PasswordHasherOptions>> _options = new();
+        private IOptions<PasswordHasherOptions> _options;
         private IAccountManager _accountManager;
 
-        public AccountManagerTests()
+        public AccountManagerTests(IOptions<PasswordHasherOptions> options)
         {
-            _accountManager = new AccountManager(_options.Object);
+            _options = options;
+            _accountManager = new AccountManager(_options);
         }
 
         //[Fact]
