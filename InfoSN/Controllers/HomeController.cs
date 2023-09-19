@@ -1,6 +1,5 @@
 ﻿using InfoSN.Models;
 using Microsoft.AspNetCore.Mvc;
-using System.Data;
 using System.Diagnostics;
 
 namespace InfoSN.Controllers
@@ -8,12 +7,10 @@ namespace InfoSN.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
-        private readonly IDbConnection _dbConnection;
 
-        public HomeController(ILogger<HomeController> logger, IDbConnection dbConnection)
+        public HomeController(ILogger<HomeController> logger)
         {
             _logger = logger;
-            _dbConnection = dbConnection;
         }
 
         public IActionResult Index()

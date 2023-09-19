@@ -32,6 +32,13 @@ namespace InfoSN.Managers
             };
         }
 
+        public bool VerifyPassword(User user, string passwordToVerify)
+        {
+            string userPassword = GetHashPassword(user.Password, Encoding.UTF8.GetBytes(user.SaltPassword));
+
+            return userPassword == passwordToVerify;
+        }
+
         private byte[] CreateSaltPassword()
         {
             return RandomNumberGenerator.GetBytes(_hasher.KeySize);

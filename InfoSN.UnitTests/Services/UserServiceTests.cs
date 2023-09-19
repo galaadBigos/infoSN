@@ -1,5 +1,4 @@
-﻿using AutoFixture;
-using InfoSN.Managers.Abstractions;
+﻿using InfoSN.Managers.Abstractions;
 using InfoSN.Models.Entities;
 using InfoSN.Models.ViewModel.Accounts;
 using InfoSN.Repositories.Abstractions;
@@ -13,7 +12,7 @@ namespace InfoSN.UnitTests.Services
     {
         private Fixture _fixture;
 
-        private readonly IUserService _userService;
+        private readonly IAccountService _userService;
         private readonly Mock<IUserRepository> _userRepositoryMock;
         private readonly Mock<IAccountManager> _accountManagerMock;
 
@@ -22,7 +21,7 @@ namespace InfoSN.UnitTests.Services
             _fixture = new Fixture();
             _userRepositoryMock = new Mock<IUserRepository>();
             _accountManagerMock = new Mock<IAccountManager>();
-            _userService = new UserService(_accountManagerMock.Object, _userRepositoryMock.Object);
+            _userService = new AccountService(_accountManagerMock.Object, _userRepositoryMock.Object);
         }
 
         [Fact]

@@ -2,8 +2,9 @@
 
 namespace InfoSN.Services.Abstractions
 {
-    public interface IUserService
+    public interface IAccountService
     {
         public void PostRegisterVM(RegisterVM model);
+        public bool IsRightIdentifier(string email, string password);
     }
 }

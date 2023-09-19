@@ -2,7 +2,7 @@
 {
     public class PasswordHasherOptions
     {
-        public int KeySize { get; init; }
-        public int Iterations { get; init; }
+        public int KeySize { get; set; }
+        public int Iterations { get; set; }
     }
 }
