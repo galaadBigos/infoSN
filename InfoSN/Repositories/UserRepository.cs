@@ -26,12 +26,32 @@ namespace InfoSN.Repositories
             command.CommandText = query;
             CRUDHelper.AddParametersToDbCommand(command, user);
 
-            if (command.ExecuteNonQuery() <= 0)
-            {
-                throw new Exception("The insert query did not work");
-            }
+            command.ExecuteNonQuery();
 
             _dbConnection.Close();
         }
+
+        public User? GetUser(string email)
+        {
+            User? result = null;
+            string query = CRUDHelper.GenerateGetByQuery(_table, "email_user", email);
+
+            _dbConnection.Open();
+
+            IDbCommand command = _dbConnection.CreateCommand();
+            command.CommandText = query;
+            IDataReader reader = command.ExecuteReader();
+
+            while (reader.Read())
+            {
+                result = UserHelper.GenerateUserFromDb(reader);
+            }
+
+            _dbConnection.Close();
+
+            return result;
+        }
+
+
     }
 }

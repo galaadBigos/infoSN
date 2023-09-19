@@ -22,7 +22,7 @@ namespace InfoSN
             builder.Services.AddOptions();
             builder.Services.Configure<PasswordHasherOptions>(builder.Configuration.GetSection("PasswordHasher"));
 
-            builder.Services.AddScoped<IUserService, UserService>();
+            builder.Services.AddScoped<IAccountService, AccountService>();
             builder.Services.AddScoped<IUserRepository, UserRepository>();
             builder.Services.AddScoped<IAccountManager, AccountManager>();
 

@@ -1,14 +1,15 @@
 ﻿using InfoSN.Models.ViewModel.Accounts;
 using InfoSN.Services.Abstractions;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Data.SqlClient;
 
 namespace InfoSN.Controllers
 {
     public class AccountController : Controller
     {
-        private readonly IUserService _userService;
+        private readonly IAccountService _userService;
 
-        public AccountController(IUserService userService)
+        public AccountController(IAccountService userService)
         {
             _userService = userService;
         }
@@ -28,7 +29,19 @@ namespace InfoSN.Controllers
             {
                 if (model.Password == model.ConfirmPassword)
                 {
-                    _userService.PostRegisterVM(model);
+                    try
+                    {
+                        _userService.PostRegisterVM(model);
+                    }
+                    catch (SqlException ex)
+                    {
+                        return View();
+                    }
+                    catch (Exception ex)
+                    {
+                        throw new Exception("The insert query did not work");
+                    }
+
                     return RedirectToAction("Index", "Home");
                 }
                 else
@@ -36,9 +49,6 @@ namespace InfoSN.Controllers
                     ModelState.AddModelError("Password", "Le mot de passe et la confirmation ne coresspondent pas");
                 }
             }
-
-            model.Password = "";
-            model.ConfirmPassword = "";
 
             return View(model);
         }

@@ -5,5 +5,6 @@ namespace InfoSN.Repositories.Abstractions
     public interface IUserRepository
     {
         public void PostUser(User user);
+        public User? GetUser(string email);
     }
 }

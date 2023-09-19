@@ -6,12 +6,12 @@ using InfoSN.Services.Abstractions;
 
 namespace InfoSN.Services
 {
-    public class UserService : IUserService
+    public class AccountService : IAccountService
     {
         private readonly IAccountManager _accountManager;
         private readonly IUserRepository _userRepository;
 
-        public UserService(IAccountManager accountManager, IUserRepository userRepository)
+        public AccountService(IAccountManager accountManager, IUserRepository userRepository)
         {
             _accountManager = accountManager;
             _userRepository = userRepository;
@@ -21,6 +21,20 @@ namespace InfoSN.Services
         {
             User user = _accountManager.CreateUser(model);
             _userRepository.PostUser(user);
+        }
+
+        public bool IsRightIdentifier(string email, string password)
+        {
+            User? user = _userRepository.GetUser(email);
+
+            if (user == null)
+                return false;
+
+            else if (_accountManager.VerifyPassword(user, password))
+                return true;
+
+            else
+                return false;
         }
     }
 }

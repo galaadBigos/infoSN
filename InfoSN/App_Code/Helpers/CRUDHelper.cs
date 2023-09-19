@@ -6,6 +6,16 @@ namespace InfoSN.App_Code.Helpers
 {
     public static class CRUDHelper
     {
+        public static string GenerateGetAllQuery(TableNames tableName)
+        {
+            return $"SELECT * FROM [{tableName}];";
+        }
+
+        public static string GenerateGetByQuery(TableNames tableName, string attributName, string attributValue)
+        {
+            return $"SELECT * FROM [{tableName}] WHERE {attributName} = '{attributValue}';";
+        }
+
         public static string GenerateSecurePostQuery(Entity entity, TableNames nameTable)
         {
             string result = $"INSERT INTO [{nameTable}] VALUES (";
