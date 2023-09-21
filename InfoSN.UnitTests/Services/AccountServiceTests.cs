@@ -2,8 +2,8 @@
 using InfoSN.Models.Entities;
 using InfoSN.Models.ViewModel.Accounts;
 using InfoSN.Repositories.Abstractions;
-using InfoSN.Services;
 using InfoSN.Services.Abstractions;
+using InfoSN.Services.Implementations;
 using Moq;
 
 namespace InfoSN.UnitTests.Services
@@ -38,13 +38,14 @@ namespace InfoSN.UnitTests.Services
         [Fact]
         public void IsRightIdentifier_Should_Return_False_If_Repository_Return_Null()
         {
+            LoginVM model = _fixture.Create<LoginVM>();
             _userRepositoryMock.Setup(m => m.GetUser(It.IsAny<string>()))
                 .Returns(() => null);
 
             string email = _fixture.Create<string>();
             string password = _fixture.Create<string>();
 
-            bool isRightIdentifier = _accountService.IsRightIdentifier(email, password);
+            bool isRightIdentifier = _accountService.IsRightIdentifier(model);
 
             isRightIdentifier.Should().BeFalse();
             _userRepositoryMock.Verify(m => m.GetUser(It.IsAny<string>()), Times.Once);
@@ -53,6 +54,7 @@ namespace InfoSN.UnitTests.Services
         [Fact]
         public void IsRightIdentifier_Should_Return_False_If_VerifyPassword_Return_False()
         {
+            LoginVM model = _fixture.Create<LoginVM>();
             _userRepositoryMock.Setup(m => m.GetUser(It.IsAny<string>()))
     .Returns(new User());
             _accountManagerMock.Setup(m => m.VerifyPassword(It.IsAny<User>(), It.IsAny<string>()))
@@ -61,7 +63,7 @@ namespace InfoSN.UnitTests.Services
             string email = _fixture.Create<string>();
             string password = _fixture.Create<string>();
 
-            bool isRightIdentifier = _accountService.IsRightIdentifier(email, password);
+            bool isRightIdentifier = _accountService.IsRightIdentifier(model);
 
             isRightIdentifier.Should().BeFalse();
             _accountManagerMock.Verify(m => m.VerifyPassword(It.IsAny<User>(), It.IsAny<string>()), Times.Once);
@@ -70,6 +72,7 @@ namespace InfoSN.UnitTests.Services
         [Fact]
         public void IsRightIdentifier_Should_Return_True_If_VerifyPassword_Return_True()
         {
+            LoginVM model = _fixture.Create<LoginVM>();
             _userRepositoryMock.Setup(m => m.GetUser(It.IsAny<string>()))
     .Returns(new User());
             _accountManagerMock.Setup(m => m.VerifyPassword(It.IsAny<User>(), It.IsAny<string>()))
@@ -78,7 +81,7 @@ namespace InfoSN.UnitTests.Services
             string email = _fixture.Create<string>();
             string password = _fixture.Create<string>();
 
-            bool isRightIdentifier = _accountService.IsRightIdentifier(email, password);
+            bool isRightIdentifier = _accountService.IsRightIdentifier(model);
 
             isRightIdentifier.Should().BeTrue();
             _accountManagerMock.Verify(m => m.VerifyPassword(It.IsAny<User>(), It.IsAny<string>()), Times.Once);

@@ -4,7 +4,7 @@ using InfoSN.Models.ViewModel.Accounts;
 using InfoSN.Repositories.Abstractions;
 using InfoSN.Services.Abstractions;
 
-namespace InfoSN.Services
+namespace InfoSN.Services.Implementations
 {
     public class AccountService : IAccountService
     {
@@ -19,22 +19,23 @@ namespace InfoSN.Services
 
         public void PostRegisterVM(RegisterVM model)
         {
-            User user = _accountManager.CreateUser(model);
+            User user = CreateUser(model);
             _userRepository.PostUser(user);
         }
 
-        public bool IsRightIdentifier(string email, string password)
+        public User CreateUser(RegisterVM model)
         {
-            User? user = _userRepository.GetUser(email);
+            string salt = Guid.NewGuid().ToString();
 
-            if (user == null)
-                return false;
-
-            else if (_accountManager.VerifyPassword(user, password))
-                return true;
-
-            else
-                return false;
+            return new User()
+            {
+                Id = Guid.NewGuid().ToString(),
+                UserName = model.UserName!,
+                Email = model.Email!,
+                Password = _accountManager.GetHashPassword(model.Password!, salt),
+                SaltPassword = salt,
+                RegistrationDate = DateTime.Now,
+            };
         }
     }
 }

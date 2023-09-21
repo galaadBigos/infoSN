@@ -1,4 +1,4 @@
-﻿namespace InfoSN.Services
+﻿namespace InfoSN.Services.Implementations
 {
     public class ArticleService
     {
