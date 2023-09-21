@@ -1,12 +1,13 @@
 {
   "version": 2,
-  "dgSpecHash": "rcfF7gx4erU2xK6oVZktmjcPJ8nELz5mn/9/oQ5+QxbU1iQcm1+pc5G5/xTevZKiagAbZlciBPaC8g6odffUIw==",
+  "dgSpecHash": "+4AUZluz6xeSQhwG9DyhTVEyh3dZcppATIPLbvUgXSncsEv9bEBvje4yr83p/OJGWyymt6c+BBlugzxjVxZ74w==",
   "success": true,
   "projectFilePath": "D:\\projet-infoSN\\repos\\InfoSN\\InfoSN.UnitTests\\InfoSN.UnitTests.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\GBigo\\.nuget\\packages\\autofixture\\4.18.0\\autofixture.4.18.0.nupkg.sha512",
     "C:\\Users\\GBigo\\.nuget\\packages\\azure.core\\1.25.0\\azure.core.1.25.0.nupkg.sha512",
     "C:\\Users\\GBigo\\.nuget\\packages\\azure.identity\\1.7.0\\azure.identity.1.7.0.nupkg.sha512",
+    "C:\\Users\\GBigo\\.nuget\\packages\\bcrypt.net-next\\4.0.3\\bcrypt.net-next.4.0.3.nupkg.sha512",
     "C:\\Users\\GBigo\\.nuget\\packages\\castle.core\\5.1.1\\castle.core.5.1.1.nupkg.sha512",
     "C:\\Users\\GBigo\\.nuget\\packages\\coverlet.collector\\3.2.0\\coverlet.collector.3.2.0.nupkg.sha512",
     "C:\\Users\\GBigo\\.nuget\\packages\\fare\\2.1.1\\fare.2.1.1.nupkg.sha512",

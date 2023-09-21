@@ -3,7 +3,7 @@ using InfoSN.Models.Entities;
 using InfoSN.Repositories.Abstractions;
 using System.Data;
 
-namespace InfoSN.Repositories
+namespace InfoSN.Repositories.Implementations
 {
     public class UserRepository : IUserRepository
     {
