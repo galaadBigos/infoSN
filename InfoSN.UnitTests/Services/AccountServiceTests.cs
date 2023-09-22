@@ -36,55 +36,18 @@ namespace InfoSN.UnitTests.Services
         }
 
         [Fact]
-        public void IsRightIdentifier_Should_Return_False_If_Repository_Return_Null()
+        public void CreateUser_Should_Return_User_According_To_RegisterVM_Model()
         {
-            LoginVM model = _fixture.Create<LoginVM>();
-            _userRepositoryMock.Setup(m => m.GetUser(It.IsAny<string>()))
-                .Returns(() => null);
+            RegisterVM model = _fixture.Create<RegisterVM>();
 
-            string email = _fixture.Create<string>();
-            string password = _fixture.Create<string>();
+            User user = _accountService.CreateUser(model);
 
-            bool isRightIdentifier = _accountService.IsRightIdentifier(model);
-
-            isRightIdentifier.Should().BeFalse();
-            _userRepositoryMock.Verify(m => m.GetUser(It.IsAny<string>()), Times.Once);
-        }
-
-        [Fact]
-        public void IsRightIdentifier_Should_Return_False_If_VerifyPassword_Return_False()
-        {
-            LoginVM model = _fixture.Create<LoginVM>();
-            _userRepositoryMock.Setup(m => m.GetUser(It.IsAny<string>()))
-    .Returns(new User());
-            _accountManagerMock.Setup(m => m.VerifyPassword(It.IsAny<User>(), It.IsAny<string>()))
-                .Returns(() => false);
-
-            string email = _fixture.Create<string>();
-            string password = _fixture.Create<string>();
-
-            bool isRightIdentifier = _accountService.IsRightIdentifier(model);
-
-            isRightIdentifier.Should().BeFalse();
-            _accountManagerMock.Verify(m => m.VerifyPassword(It.IsAny<User>(), It.IsAny<string>()), Times.Once);
-        }
-
-        [Fact]
-        public void IsRightIdentifier_Should_Return_True_If_VerifyPassword_Return_True()
-        {
-            LoginVM model = _fixture.Create<LoginVM>();
-            _userRepositoryMock.Setup(m => m.GetUser(It.IsAny<string>()))
-    .Returns(new User());
-            _accountManagerMock.Setup(m => m.VerifyPassword(It.IsAny<User>(), It.IsAny<string>()))
-                .Returns(() => true);
-
-            string email = _fixture.Create<string>();
-            string password = _fixture.Create<string>();
-
-            bool isRightIdentifier = _accountService.IsRightIdentifier(model);
-
-            isRightIdentifier.Should().BeTrue();
-            _accountManagerMock.Verify(m => m.VerifyPassword(It.IsAny<User>(), It.IsAny<string>()), Times.Once);
+            user.Should().NotBeNull();
+            user.Id.Should().NotBeNullOrEmpty();
+            user.UserName.Should().Be(model.UserName);
+            user.Email.Should().Be(model.Email);
+            user.Password.Should().NotBe(model.Password);
+            user.RegistrationDate.Should().BeSameDateAs(DateTime.Now);
         }
     }
 }
