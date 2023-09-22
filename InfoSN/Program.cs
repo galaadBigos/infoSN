@@ -20,13 +20,13 @@ namespace InfoSN
             builder.Services.AddControllersWithViews();
             builder.Services.AddAuthentication().AddCookie("LoginCookie");
 
-            builder.Services.AddOptions();
-            builder.Services.Configure<PasswordHasherOptions>(builder.Configuration.GetSection("PasswordHasher"));
+            builder.Services.AddOptions<PasswordHasherOptions>().Bind(builder.Configuration.GetSection("PasswordHasher"));
+            //builder.Services.Configure<PasswordHasherOptions>(builder.Configuration.GetSection("PasswordHasher"));
 
             builder.Services.AddScoped<IAccountService, AccountService>();
             builder.Services.AddScoped<IUserRepository, UserRepository>();
             builder.Services.AddScoped<IAccountManager, AccountManager>();
-            builder.Services.AddScoped<ICookieManager, CookieManager>();
+            builder.Services.AddScoped<ICookieAuthenticationManager, CookieAuthenticationManager>();
 
             string? connectionString = builder.Configuration["SecretSQLServerConnectionString"];
             builder.Services.AddTransient<IDbConnection>(db => new SqlConnection(connectionString));

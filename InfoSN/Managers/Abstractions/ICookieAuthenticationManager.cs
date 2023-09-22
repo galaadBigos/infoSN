@@ -4,7 +4,7 @@ using System.Security.Claims;
 
 namespace InfoSN.Managers.Abstractions
 {
-    public interface ICookieManager
+    public interface ICookieAuthenticationManager
     {
         public List<Claim> CreateLoginClaims(LoginVM model);
 

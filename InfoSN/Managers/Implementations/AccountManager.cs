@@ -18,6 +18,7 @@ namespace InfoSN.Managers.Implementations
         {
             _hasher = hasher.Value;
             _userRepository = userRepository;
+
         }
 
         public bool VerifyPassword(User user, string passwordToVerify)
