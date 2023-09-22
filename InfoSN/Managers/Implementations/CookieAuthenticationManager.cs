@@ -5,7 +5,7 @@ using System.Security.Claims;
 
 namespace InfoSN.Managers.Implementations
 {
-    public class CookieManager : ICookieManager
+    public class CookieAuthenticationManager : ICookieAuthenticationManager
     {
         public List<Claim> CreateLoginClaims(LoginVM model)
         {

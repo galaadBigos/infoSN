@@ -11,9 +11,9 @@ namespace InfoSN.Controllers
     {
         private readonly IAccountService _accountService;
         private readonly IAccountManager _accountManager;
-        private readonly ICookieManager _cookieManager;
+        private readonly ICookieAuthenticationManager _cookieManager;
 
-        public AccountController(IAccountService accountService, IAccountManager accountManager, ICookieManager cookieManager)
+        public AccountController(IAccountService accountService, IAccountManager accountManager, ICookieAuthenticationManager cookieManager)
         {
             _accountService = accountService;
             _accountManager = accountManager;
