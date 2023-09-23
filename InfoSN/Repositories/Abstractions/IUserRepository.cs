@@ -6,5 +6,6 @@ namespace InfoSN.Repositories.Abstractions
     {
         public void PostUser(User user);
         public User? GetUser(string email);
+        public IEnumerable<User> GetAllUsers();
     }
 }

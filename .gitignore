@@ -1,6 +1,3 @@
-.vs
 .husky
-bin
-obj
 package-lock.json
 node_modules

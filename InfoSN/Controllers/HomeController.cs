@@ -1,4 +1,6 @@
 ﻿using InfoSN.Models;
+using InfoSN.Models.ViewModel.Articles;
+using InfoSN.Services.Abstractions;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 
@@ -7,20 +9,19 @@ namespace InfoSN.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
+        private readonly IArticleService _articleService;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(ILogger<HomeController> logger, IArticleService articleService)
         {
             _logger = logger;
+            _articleService = articleService;
         }
 
         public IActionResult Index()
         {
-            return View();
-        }
+            IEnumerable<DisplayArticleVM> model = _articleService.GetAllArticles();
 
-        public IActionResult Privacy()
-        {
-            return View();
+            return View(model);
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
