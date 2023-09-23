@@ -4,6 +4,6 @@ namespace InfoSN.Repositories.Abstractions
 {
     public interface IArticleRepository
     {
-        public IEnumerable<Article> GetArticles();
+        public IEnumerable<Article> GetAllArticles();
     }
 }

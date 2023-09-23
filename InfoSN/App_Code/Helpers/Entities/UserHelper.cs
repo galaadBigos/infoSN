@@ -1,7 +1,7 @@
 ﻿using InfoSN.Models.Entities;
 using System.Data;
 
-namespace InfoSN.App_Code.Helpers
+namespace InfoSN.App_Code.Helpers.Entities
 {
     public static class UserHelper
     {
