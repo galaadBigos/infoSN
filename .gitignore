@@ -1,3 +1,6 @@
+.vs
+obj
+bin
 .husky
 package-lock.json
 node_modules
