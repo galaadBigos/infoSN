@@ -6,7 +6,10 @@
 
 <h1>Register</h1>
 
-<h4>RegisterVM</h4>
+@if (!string.IsNullOrEmpty(ViewBag.ExceptionMessage))
+{
+    <span class="text-danger">@ViewBag.ExceptionMessage</span>
+}
 <hr />
 <div class="row">
     <div class="col-md-4">

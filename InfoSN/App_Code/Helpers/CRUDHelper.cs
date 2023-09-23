@@ -6,15 +6,24 @@ namespace InfoSN.App_Code.Helpers
 {
     public static class CRUDHelper
     {
+        public static string GenerateGetAllQuery(TableNames tableName)
+        {
+            return $"SELECT * FROM [{tableName}];";
+        }
+
+        public static string GenerateGetByQuery(TableNames tableName, string attributName, string attributValue)
+        {
+            return $"SELECT * FROM [{tableName}] WHERE {attributName} = '{attributValue}';";
+        }
+
         public static string GenerateSecurePostQuery(Entity entity, TableNames nameTable)
         {
-            string result = $"INSERT INTO User VALUES (";
+            string result = $"INSERT INTO [{nameTable}] VALUES (";
             PropertyInfo[] properties = entity.GetType().GetProperties();
 
             foreach (PropertyInfo property in properties)
             {
-                if (property.Name != "Id")
-                    result += $"@{property.Name}, ";
+                result += $"@{property.Name}, ";
             }
             result = result[0..(result.Length - 2)];
             result += ");";
@@ -28,15 +37,12 @@ namespace InfoSN.App_Code.Helpers
 
             foreach (PropertyInfo prop in props)
             {
-                if (prop.Name != "Id")
-                {
-                    IDbDataParameter parameter = command.CreateParameter();
+                IDbDataParameter parameter = command.CreateParameter();
 
-                    parameter.ParameterName = $"@{prop.Name}";
-                    parameter.Value = prop.GetValue(entity);
+                parameter.ParameterName = $"@{prop.Name}";
+                parameter.Value = prop.GetValue(entity);
 
-                    command.Parameters.Add(parameter);
-                }
+                command.Parameters.Add(parameter);
             }
         }
     }

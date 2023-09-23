@@ -17,6 +17,8 @@ D:\projet-infoSN\repos\InfoSN\InfoSN.UnitTests\bin\Debug\net7.0\InfoSN.UnitTests
 D:\projet-infoSN\repos\InfoSN\InfoSN.UnitTests\bin\Debug\net7.0\AutoFixture.dll
 D:\projet-infoSN\repos\InfoSN\InfoSN.UnitTests\bin\Debug\net7.0\Azure.Core.dll
 D:\projet-infoSN\repos\InfoSN\InfoSN.UnitTests\bin\Debug\net7.0\Azure.Identity.dll
+D:\projet-infoSN\repos\InfoSN\InfoSN.UnitTests\bin\Debug\net7.0\BCrypt.Net-Next.dll
+D:\projet-infoSN\repos\InfoSN\InfoSN.UnitTests\bin\Debug\net7.0\Castle.Core.dll
 D:\projet-infoSN\repos\InfoSN\InfoSN.UnitTests\bin\Debug\net7.0\Fare.dll
 D:\projet-infoSN\repos\InfoSN\InfoSN.UnitTests\bin\Debug\net7.0\FluentAssertions.dll
 D:\projet-infoSN\repos\InfoSN\InfoSN.UnitTests\bin\Debug\net7.0\Humanizer.dll
@@ -63,6 +65,7 @@ D:\projet-infoSN\repos\InfoSN\InfoSN.UnitTests\bin\Debug\net7.0\Microsoft.Visual
 D:\projet-infoSN\repos\InfoSN\InfoSN.UnitTests\bin\Debug\net7.0\Microsoft.VisualStudio.Web.CodeGeneration.Utils.dll
 D:\projet-infoSN\repos\InfoSN\InfoSN.UnitTests\bin\Debug\net7.0\Microsoft.VisualStudio.Web.CodeGenerators.Mvc.dll
 D:\projet-infoSN\repos\InfoSN\InfoSN.UnitTests\bin\Debug\net7.0\Microsoft.Win32.SystemEvents.dll
+D:\projet-infoSN\repos\InfoSN\InfoSN.UnitTests\bin\Debug\net7.0\Moq.dll
 D:\projet-infoSN\repos\InfoSN\InfoSN.UnitTests\bin\Debug\net7.0\Newtonsoft.Json.dll
 D:\projet-infoSN\repos\InfoSN\InfoSN.UnitTests\bin\Debug\net7.0\NuGet.Common.dll
 D:\projet-infoSN\repos\InfoSN\InfoSN.UnitTests\bin\Debug\net7.0\NuGet.Configuration.dll
@@ -320,5 +323,3 @@ D:\projet-infoSN\repos\InfoSN\InfoSN.UnitTests\obj\Debug\net7.0\refint\InfoSN.Un
 D:\projet-infoSN\repos\InfoSN\InfoSN.UnitTests\obj\Debug\net7.0\InfoSN.UnitTests.pdb
 D:\projet-infoSN\repos\InfoSN\InfoSN.UnitTests\obj\Debug\net7.0\InfoSN.UnitTests.genruntimeconfig.cache
 D:\projet-infoSN\repos\InfoSN\InfoSN.UnitTests\obj\Debug\net7.0\ref\InfoSN.UnitTests.dll
-D:\projet-infoSN\repos\InfoSN\InfoSN.UnitTests\bin\Debug\net7.0\Castle.Core.dll
-D:\projet-infoSN\repos\InfoSN\InfoSN.UnitTests\bin\Debug\net7.0\Moq.dll

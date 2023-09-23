@@ -1,11 +1,12 @@
 {
   "version": 2,
-  "dgSpecHash": "mnQyz/eDQFvIh3t2QdEK4h56S4feKdLgPBhoE1KYE4wVDgNz1KyfG+5dYxPEJfsbg0nBWPbY/yyx06O0d1oddA==",
+  "dgSpecHash": "UyJbjxi1xtBgL1mY8uTIrWSA4QLdiOTHsn8/gVtc1LmQMu6QHWIavmAk7qbq+p+EG9H+TLP1zytoJvFq0EN4JQ==",
   "success": true,
   "projectFilePath": "D:\\projet-infoSN\\repos\\InfoSN\\InfoSN\\InfoSN.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\GBigo\\.nuget\\packages\\azure.core\\1.25.0\\azure.core.1.25.0.nupkg.sha512",
     "C:\\Users\\GBigo\\.nuget\\packages\\azure.identity\\1.7.0\\azure.identity.1.7.0.nupkg.sha512",
+    "C:\\Users\\GBigo\\.nuget\\packages\\bcrypt.net-next\\4.0.3\\bcrypt.net-next.4.0.3.nupkg.sha512",
     "C:\\Users\\GBigo\\.nuget\\packages\\humanizer\\2.14.1\\humanizer.2.14.1.nupkg.sha512",
     "C:\\Users\\GBigo\\.nuget\\packages\\humanizer.core\\2.14.1\\humanizer.core.2.14.1.nupkg.sha512",
     "C:\\Users\\GBigo\\.nuget\\packages\\humanizer.core.af\\2.14.1\\humanizer.core.af.2.14.1.nupkg.sha512",
@@ -210,12 +211,5 @@
     "C:\\Users\\GBigo\\.nuget\\packages\\system.xml.readerwriter\\4.3.0\\system.xml.readerwriter.4.3.0.nupkg.sha512",
     "C:\\Users\\GBigo\\.nuget\\packages\\system.xml.xdocument\\4.3.0\\system.xml.xdocument.4.3.0.nupkg.sha512"
   ],
-  "logs": [
-    {
-      "code": "Undefined",
-      "level": "Warning",
-      "warningLevel": 1,
-      "message": "Problem reading the cache file D:\\projet-infoSN\\repos\\InfoSN\\InfoSN\\obj\\project.nuget.cache : Invalid property identifier character: <. Path 'version', line 3, position 0."
-    }
-  ]
+  "logs": []
 }

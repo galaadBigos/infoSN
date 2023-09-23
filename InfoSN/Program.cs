@@ -1,10 +1,10 @@
-using InfoSN.Managers;
 using InfoSN.Managers.Abstractions;
+using InfoSN.Managers.Implementations;
 using InfoSN.Options;
-using InfoSN.Repositories;
 using InfoSN.Repositories.Abstractions;
-using InfoSN.Services;
+using InfoSN.Repositories.Implementations;
 using InfoSN.Services.Abstractions;
+using InfoSN.Services.Implementations;
 using Microsoft.Data.SqlClient;
 using System.Data;
 
@@ -18,17 +18,18 @@ namespace InfoSN
 
             // Add services to the container.
             builder.Services.AddControllersWithViews();
+            builder.Services.AddAuthentication().AddCookie("LoginCookie");
 
-            builder.Services.AddOptions();
-            builder.Services.Configure<PasswordHasherOptions>(builder.Configuration.GetSection("PasswordHasher"));
+            builder.Services.AddOptions<PasswordHasherOptions>().Bind(builder.Configuration.GetSection("PasswordHasher"));
+            //builder.Services.Configure<PasswordHasherOptions>(builder.Configuration.GetSection("PasswordHasher"));
 
-            builder.Services.AddScoped<IUserService, UserService>();
+            builder.Services.AddScoped<IAccountService, AccountService>();
             builder.Services.AddScoped<IUserRepository, UserRepository>();
             builder.Services.AddScoped<IAccountManager, AccountManager>();
+            builder.Services.AddScoped<ICookieAuthenticationManager, CookieAuthenticationManager>();
 
             string? connectionString = builder.Configuration["SecretSQLServerConnectionString"];
             builder.Services.AddTransient<IDbConnection>(db => new SqlConnection(connectionString));
-
 
             var app = builder.Build();
 
@@ -45,6 +46,7 @@ namespace InfoSN
 
             app.UseRouting();
 
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.MapControllerRoute(
