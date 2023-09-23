@@ -1,4 +1,5 @@
 ﻿using InfoSN.App_Code.Helpers;
+using InfoSN.App_Code.Helpers.Entities;
 using InfoSN.Models.Entities;
 using InfoSN.Repositories.Abstractions;
 using System.Data;
@@ -29,6 +30,26 @@ namespace InfoSN.Repositories.Implementations
             command.ExecuteNonQuery();
 
             _dbConnection.Close();
+        }
+
+        public IEnumerable<User> GetAllUsers()
+        {
+            List<User> result = new List<User>();
+            string query = CRUDHelper.GenerateGetAllQuery(_table);
+
+            _dbConnection.Open();
+
+            IDbCommand command = _dbConnection.CreateCommand();
+            command.CommandText = query;
+            IDataReader reader = command.ExecuteReader();
+
+            while (reader.Read())
+            {
+                User user = UserHelper.GenerateUserFromDb(reader);
+                result.Add(user);
+            }
+
+            return result;
         }
 
         public User? GetUser(string email)
