@@ -1,0 +1,17 @@
+﻿@using InfoSN.Models.ViewModel.Articles;
+@model DetailsArticleVM;
+@{
+}
+
+<div>
+	@if (Model is null)
+	{
+		<p>L'article demandé n'existe pas</p>
+		<a asp-controller="Home" asp-action="Index">Retour à l'accueil</a>
+	}
+	else
+	{
+		<h2>@Model.Title</h2>
+		<p>@Model.Description</p>
+	}
+</div>
