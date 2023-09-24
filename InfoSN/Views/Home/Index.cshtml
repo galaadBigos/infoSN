@@ -1,19 +1,36 @@
 ﻿@using InfoSN.Models.ViewModel.Articles;
 @model IEnumerable<DisplayArticleVM>;
 @{
-    ViewData["Title"] = "Home Page";
+	ViewData["Title"] = "Home Page";
 }
-
-<div class="text-center">
-    <h1 class="display-4">InfoSN</h1>
-    @if (Model.Count() >= 1)
-    {
-        foreach (DisplayArticleVM article in Model)
-        {
-            <div>
-                <h2>@article.Title</h2>
-                <p>@article.Description</p>
-            </div>
-        }
-    }
+<div class="">
+	@if (Model.Count() >= 1)
+	{
+		foreach (DisplayArticleVM article in Model)
+		{
+			<div class="card-article">
+				<div class="container-article">
+					<p>@article.User.UserName : @article.PostDate.ToShortDateString()</p>
+					<h2>@article.Title</h2>
+					<p>@article.Description[..250] ...</p>
+					<a asp-controller="Article" asp-action="Details" asp-route-id="@article.Id">Voir plus...</a>
+				</div>
+			</div>
+			<hr />
+		}
+		foreach (DisplayArticleVM article in Model)
+		{
+			<div class="container-articles">
+				<h2>@article.Title</h2>
+				<p>@article.Description[..250] ...</p>
+			</div>
+		}
+		foreach (DisplayArticleVM article in Model)
+		{
+			<div class="container-articles">
+				<h2>@article.Title</h2>
+				<p>@article.Description[..250] ...</p>
+			</div>
+		}
+	}
 </div>
