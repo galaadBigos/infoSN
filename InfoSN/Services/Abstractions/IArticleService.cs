@@ -2,8 +2,9 @@
 
 namespace InfoSN.Services.Abstractions
 {
-    public interface IArticleService
-    {
-        public IEnumerable<DisplayArticleVM> GetAllArticles();
-    }
+	public interface IArticleService
+	{
+		public IEnumerable<DisplayArticleVM> GetAllArticles();
+		public DetailsArticleVM? GetArticle(string id);
+	}
 }

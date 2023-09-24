@@ -10,27 +10,13 @@
 		{
 			<div class="card-article">
 				<div class="container-article">
-					<p>@article.User.UserName : @article.PostDate.ToShortDateString()</p>
+					<p class="article-label">@article.User.UserName : @article.PostDate.ToShortDateString()</p>
 					<h2>@article.Title</h2>
 					<p>@article.Description[..250] ...</p>
 					<a asp-controller="Article" asp-action="Details" asp-route-id="@article.Id">Voir plus...</a>
 				</div>
 			</div>
 			<hr />
-		}
-		foreach (DisplayArticleVM article in Model)
-		{
-			<div class="container-articles">
-				<h2>@article.Title</h2>
-				<p>@article.Description[..250] ...</p>
-			</div>
-		}
-		foreach (DisplayArticleVM article in Model)
-		{
-			<div class="container-articles">
-				<h2>@article.Title</h2>
-				<p>@article.Description[..250] ...</p>
-			</div>
 		}
 	}
 </div>

@@ -6,33 +6,43 @@ using InfoSN.Services.Abstractions;
 
 namespace InfoSN.Services.Implementations
 {
-    public class ArticleService : IArticleService
-    {
-        private readonly IArticleRepository _articleRepository;
-        private readonly IUserRepository _userRepository;
+	public class ArticleService : IArticleService
+	{
+		private readonly IArticleRepository _articleRepository;
+		private readonly IUserRepository _userRepository;
 
-        public ArticleService(IArticleRepository articleRepository, IUserRepository userRepository)
-        {
-            _articleRepository = articleRepository;
-            _userRepository = userRepository;
-        }
+		public ArticleService(IArticleRepository articleRepository, IUserRepository userRepository)
+		{
+			_articleRepository = articleRepository;
+			_userRepository = userRepository;
+		}
 
-        public IEnumerable<DisplayArticleVM> GetAllArticles()
-        {
-            List<DisplayArticleVM> result = new List<DisplayArticleVM>();
+		public IEnumerable<DisplayArticleVM> GetAllArticles()
+		{
+			List<DisplayArticleVM> result = new List<DisplayArticleVM>();
 
-            IEnumerable<Article> articles = _articleRepository.GetAllArticles();
-            IEnumerable<User> users = _userRepository.GetAllUsers();
+			IEnumerable<Article> articles = _articleRepository.GetAllArticles();
+			IEnumerable<User> users = _userRepository.GetAllUsers();
 
-            foreach (Article article in articles)
-            {
-                User user = users.Where(u => u.Id == article.IdUser).FirstOrDefault()!;
-                DisplayArticleVM model = ArticleHelper.GenerateDisplayArticleVM(article, user);
+			foreach (Article article in articles)
+			{
+				User user = users.Where(u => u.Id == article.IdUser).FirstOrDefault()!;
+				DisplayArticleVM model = ArticleHelper.GenerateDisplayArticleVM(article, user);
 
-                result.Add(model);
-            }
+				result.Add(model);
+			}
 
-            return result;
-        }
-    }
+			return result;
+		}
+
+		public DetailsArticleVM? GetArticle(string id)
+		{
+			Article? article = _articleRepository.GetArticle(id);
+
+			if (article is null)
+				return null;
+
+			return ArticleHelper.GenerateDisplayArticleVM(article);
+		}
+	}
 }
