@@ -1,5 +1,7 @@
-﻿using InfoSN.Models.ViewModel.Articles;
+﻿using InfoSN.Data.Constants;
+using InfoSN.Models.ViewModel.Articles;
 using InfoSN.Services.Abstractions;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace InfoSN.Controllers
@@ -22,6 +24,7 @@ namespace InfoSN.Controllers
 		}
 
 		[HttpGet]
+		[Authorize(Roles = RoleName.User)]
 		public IActionResult Create()
 		{
 			NewArticleVM model = new NewArticleVM();
@@ -31,6 +34,7 @@ namespace InfoSN.Controllers
 		}
 
 		[HttpPost]
+		[Authorize(Roles = RoleName.User)]
 		public IActionResult Create(NewArticleVM model)
 		{
 			if (ModelState.IsValid)

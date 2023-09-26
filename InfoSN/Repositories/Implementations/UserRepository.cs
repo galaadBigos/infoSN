@@ -6,73 +6,71 @@ using System.Data;
 
 namespace InfoSN.Repositories.Implementations
 {
-    public class UserRepository : IUserRepository
-    {
-        private readonly IDbConnection _dbConnection;
-        private readonly TableNames _table;
+	public class UserRepository : IUserRepository
+	{
+		private readonly IDbConnection _dbConnection;
+		private readonly TableNames _table;
 
-        public UserRepository(IDbConnection dbConnection)
-        {
-            _dbConnection = dbConnection;
-            _table = TableNames.User;
-        }
+		public UserRepository(IDbConnection dbConnection)
+		{
+			_dbConnection = dbConnection;
+			_table = TableNames.User;
+		}
 
-        public void PostUser(User user)
-        {
-            string query = CRUDHelper.GenerateSecurePostQuery(user, _table);
+		public void PostUser(User user)
+		{
+			string query = CRUDHelper.GenerateSecurePostQuery(user, _table);
 
-            _dbConnection.Open();
+			_dbConnection.Open();
 
-            IDbCommand command = _dbConnection.CreateCommand();
-            command.CommandText = query;
-            CRUDHelper.AddParametersToDbCommand(command, user);
+			IDbCommand command = _dbConnection.CreateCommand();
+			command.CommandText = query;
+			CRUDHelper.AddParametersToDbCommand(command, user);
 
-            command.ExecuteNonQuery();
+			command.ExecuteNonQuery();
 
-            _dbConnection.Close();
-        }
+			_dbConnection.Close();
+		}
 
-        public IEnumerable<User> GetAllUsers()
-        {
-            List<User> result = new List<User>();
-            string query = CRUDHelper.GenerateGetAllQuery(_table);
+		public IEnumerable<User> GetAllUsers()
+		{
+			List<User> result = new List<User>();
+			string query = CRUDHelper.GenerateGetAllQuery(_table);
 
-            _dbConnection.Open();
+			_dbConnection.Open();
 
-            IDbCommand command = _dbConnection.CreateCommand();
-            command.CommandText = query;
-            IDataReader reader = command.ExecuteReader();
+			IDbCommand command = _dbConnection.CreateCommand();
+			command.CommandText = query;
+			IDataReader reader = command.ExecuteReader();
 
-            while (reader.Read())
-            {
-                User user = UserHelper.GenerateUserFromDb(reader);
-                result.Add(user);
-            }
+			while (reader.Read())
+			{
+				User user = UserHelper.GenerateUserFromDb(reader);
+				result.Add(user);
+			}
 
-            return result;
-        }
+			return result;
+		}
 
-        public User? GetUser(string email)
-        {
-            User? result = null;
-            string query = CRUDHelper.GenerateGetByQuery(_table, "email_user", email);
+		public User? GetUser(string email)
+		{
+			User? result = null;
+			string query = CRUDHelper.GenerateGetByQuery(_table, "email_user", email);
 
-            _dbConnection.Open();
+			_dbConnection.Open();
 
-            IDbCommand command = _dbConnection.CreateCommand();
-            command.CommandText = query;
-            IDataReader reader = command.ExecuteReader();
+			IDbCommand command = _dbConnection.CreateCommand();
+			command.CommandText = query;
+			IDataReader reader = command.ExecuteReader();
 
-            while (reader.Read())
-            {
-                result = UserHelper.GenerateUserFromDb(reader);
-            }
+			while (reader.Read())
+			{
+				result = UserHelper.GenerateUserFromDb(reader);
+			}
 
-            _dbConnection.Close();
+			_dbConnection.Close();
 
-            return result;
-        }
-
-
-    }
+			return result;
+		}
+	}
 }
