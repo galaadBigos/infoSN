@@ -1,5 +1,6 @@
 ﻿public enum TableNames
 {
-    User,
-    Article,
+	User,
+	Article,
+	Role,
 }
