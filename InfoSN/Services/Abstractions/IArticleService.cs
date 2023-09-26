@@ -6,5 +6,6 @@ namespace InfoSN.Services.Abstractions
 	{
 		public IEnumerable<DisplayArticleVM> GetAllArticles();
 		public DetailsArticleVM? GetArticle(string id);
+		public void PostArticle(NewArticleVM model);
 	}
 }

@@ -20,5 +20,27 @@ namespace InfoSN.Controllers
 
 			return View(model);
 		}
+
+		[HttpGet]
+		public IActionResult Create()
+		{
+			NewArticleVM model = new NewArticleVM();
+			model.IdUser = User.Claims.FirstOrDefault(c => c.Type == "UserId")!.Value;
+
+			return View(model);
+		}
+
+		[HttpPost]
+		public IActionResult Create(NewArticleVM model)
+		{
+			if (ModelState.IsValid)
+			{
+				_articleService.PostArticle(model);
+
+				return RedirectToAction("Home", "Index");
+			}
+
+			return View(model);
+		}
 	}
 }

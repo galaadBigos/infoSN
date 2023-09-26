@@ -12,7 +12,14 @@
 				<div class="container-article">
 					<p class="article-label">@article.User.UserName : @article.PostDate.ToShortDateString()</p>
 					<h2>@article.Title</h2>
-					<p>@article.Description[..250] ...</p>
+					@if (article.Description.Length > 250) 
+					{
+						<p>@article.Description[..250] ...</p>
+					}
+					else
+					{
+						<p>@article.Description</p>
+					}
 					<a asp-controller="Article" asp-action="Details" asp-route-id="@article.Id">Voir plus...</a>
 				</div>
 			</div>
