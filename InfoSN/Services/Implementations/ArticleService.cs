@@ -44,5 +44,11 @@ namespace InfoSN.Services.Implementations
 
 			return ArticleHelper.GenerateDisplayArticleVM(article);
 		}
+
+		public void PostArticle(NewArticleVM model)
+		{
+			Article article = ArticleHelper.CreateArticle(model);
+			_articleRepository.PostArticle(article);
+		}
 	}
 }

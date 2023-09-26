@@ -43,5 +43,18 @@ namespace InfoSN.App_Code.Helpers.Entities
 				IdUser = article.IdUser,
 			};
 		}
+
+		public static Article CreateArticle(NewArticleVM model)
+		{
+			return new Article()
+			{
+				Id = Guid.NewGuid().ToString(),
+				Title = model.Title,
+				Description = model.Description,
+				PostDate = DateTime.Now,
+				EditDate = null,
+				IdUser = model.IdUser,
+			};
+		}
 	}
 }

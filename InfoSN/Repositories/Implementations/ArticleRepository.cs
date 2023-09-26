@@ -59,5 +59,20 @@ namespace InfoSN.Repositories.Implementations
 
 			return result;
 		}
+
+		public void PostArticle(Article article)
+		{
+			string query = CRUDHelper.GenerateSecurePostQuery(article, _table);
+
+			_dbConnection.Open();
+
+			IDbCommand command = _dbConnection.CreateCommand();
+			command.CommandText = query;
+			CRUDHelper.AddParametersToDbCommand(command, article);
+
+			command.ExecuteNonQuery();
+
+			_dbConnection.Close();
+		}
 	}
 }
