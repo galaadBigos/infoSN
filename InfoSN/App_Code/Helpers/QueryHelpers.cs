@@ -1,4 +1,5 @@
-﻿using InfoSN.Models.Entities.Abstractions;
+﻿using InfoSN.App_Code.Helpers.Entities.Abstractions;
+using InfoSN.Models.Entities.Abstractions;
 using System.Data;
 using System.Reflection;
 
@@ -44,6 +45,46 @@ namespace InfoSN.App_Code.Helpers
 
 				command.Parameters.Add(parameter);
 			}
+		}
+
+		public static T? GetEntity<T>(IDbConnection dbConnection, string query, EntityHelpers helpers) where T : Entity
+		{
+			T? result = null;
+
+			dbConnection.Open();
+
+			IDbCommand command = dbConnection.CreateCommand();
+			command.CommandText = query;
+			IDataReader reader = command.ExecuteReader();
+
+			while (reader.Read())
+			{
+				result = (T?)helpers.GenerateEntityFromDb(reader);
+			}
+
+			dbConnection.Close();
+
+			return result;
+		}
+
+		public static IEnumerable<T> GetAllEntities<T>(IDbConnection dbConnection, string query, EntityHelpers helpers) where T : Entity
+		{
+			List<T> result = new List<T>();
+			dbConnection.Open();
+
+			IDbCommand command = dbConnection.CreateCommand();
+			command.CommandText = query;
+			IDataReader reader = command.ExecuteReader();
+
+			while (reader.Read())
+			{
+				T entity = (T)helpers.GenerateEntityFromDb(reader);
+				result.Add(entity);
+			}
+
+			dbConnection.Close();
+
+			return result;
 		}
 	}
 }

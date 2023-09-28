@@ -1,12 +1,14 @@
-﻿using InfoSN.Models.Entities;
+﻿using InfoSN.App_Code.Helpers.Entities.Abstractions;
+using InfoSN.Models.Entities;
+using InfoSN.Models.Entities.Abstractions;
 using InfoSN.Models.ViewModel.Articles;
 using System.Data;
 
-namespace InfoSN.App_Code.Helpers.Entities
+namespace InfoSN.App_Code.Helpers.Entities.Implementations
 {
-	public static class ArticleHelpers
+	public class ArticleHelpers : EntityHelpers
 	{
-		public static Article GenerateArticleFromDb(IDataReader reader)
+		public Article GenerateArticleFromDb(IDataReader reader)
 		{
 			return new Article()
 			{
@@ -55,6 +57,11 @@ namespace InfoSN.App_Code.Helpers.Entities
 				EditDate = null,
 				IdUser = model.IdUser,
 			};
+		}
+
+		public override Entity GenerateEntityFromDb(IDataReader reader)
+		{
+			return GenerateArticleFromDb(reader);
 		}
 	}
 }
