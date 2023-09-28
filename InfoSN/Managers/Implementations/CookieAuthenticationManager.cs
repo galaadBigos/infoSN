@@ -20,7 +20,7 @@ namespace InfoSN.Managers.Implementations
 		public List<Claim> CreateLoginClaims(LoginVM model)
 		{
 			User? user = _userRepository.GetUser(model.Email!);
-			List<Role> roles = _roleRepository.GetRoles(user?.Id!).ToList();
+			List<Role> roles = _roleRepository.GetUserRolesById(user?.Id!).ToList();
 
 			List<Claim> result = new List<Claim>()
 			{

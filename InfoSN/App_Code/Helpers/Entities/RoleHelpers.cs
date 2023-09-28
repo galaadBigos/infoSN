@@ -3,7 +3,7 @@ using System.Data;
 
 namespace InfoSN.App_Code.Helpers.Entities
 {
-	public static class RoleHelper
+	public static class RoleHelpers
 	{
 		public static Role GenerateRoleFromDb(IDataReader reader)
 		{

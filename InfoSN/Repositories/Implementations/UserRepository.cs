@@ -19,15 +19,18 @@ namespace InfoSN.Repositories.Implementations
 
 		public void PostUser(User user)
 		{
-			string query = CRUDHelper.GenerateSecurePostQuery(user, _table);
+			string query = QueryHelpers.GenerateSecurePostQuery(user, _table);
 
 			_dbConnection.Open();
 
 			IDbCommand command = _dbConnection.CreateCommand();
 			command.CommandText = query;
-			CRUDHelper.AddParametersToDbCommand(command, user);
+			QueryHelpers.AddParametersToDbCommand(command, user);
 
-			command.ExecuteNonQuery();
+			if (command.ExecuteNonQuery() <= 0)
+			{
+				throw new Exception();
+			}
 
 			_dbConnection.Close();
 		}
@@ -35,7 +38,7 @@ namespace InfoSN.Repositories.Implementations
 		public IEnumerable<User> GetAllUsers()
 		{
 			List<User> result = new List<User>();
-			string query = CRUDHelper.GenerateGetAllQuery(_table);
+			string query = QueryHelpers.GenerateGetAllQuery(_table);
 
 			_dbConnection.Open();
 
@@ -45,7 +48,7 @@ namespace InfoSN.Repositories.Implementations
 
 			while (reader.Read())
 			{
-				User user = UserHelper.GenerateUserFromDb(reader);
+				User user = UserHelpers.GenerateUserFromDb(reader);
 				result.Add(user);
 			}
 
@@ -55,7 +58,7 @@ namespace InfoSN.Repositories.Implementations
 		public User? GetUser(string email)
 		{
 			User? result = null;
-			string query = CRUDHelper.GenerateGetByQuery(_table, "email_user", email);
+			string query = QueryHelpers.GenerateGetByQuery(_table, "email_user", email);
 
 			_dbConnection.Open();
 
@@ -65,7 +68,7 @@ namespace InfoSN.Repositories.Implementations
 
 			while (reader.Read())
 			{
-				result = UserHelper.GenerateUserFromDb(reader);
+				result = UserHelpers.GenerateUserFromDb(reader);
 			}
 
 			_dbConnection.Close();
