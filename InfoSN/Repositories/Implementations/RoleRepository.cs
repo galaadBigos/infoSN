@@ -1,4 +1,5 @@
-﻿using InfoSN.App_Code.Helpers.Entities;
+﻿using InfoSN.App_Code.Helpers;
+using InfoSN.App_Code.Helpers.Entities;
 using InfoSN.Models.Entities;
 using InfoSN.Repositories.Abstractions;
 using System.Data;
@@ -16,13 +17,10 @@ namespace InfoSN.Repositories.Implementations
 			_table = TableNames.Role;
 		}
 
-		public IEnumerable<Role> GetRoles(string userId)
+		public Role? GetRoleByName(string roleName)
 		{
-			List<Role> result = new List<Role>();
-			string query =
-				$"SELECT * FROM [{_table}] " +
-				$"INNER JOIN [RoleUser] ON [{_table}].id_role = [RoleUser].id_role " +
-				$"WHERE [RoleUser].id_user = '{userId}'";
+			Role? result = null;
+			string query = QueryHelpers.GenerateGetByQuery(_table, "label_role", roleName);
 
 			_dbConnection.Open();
 
@@ -32,11 +30,35 @@ namespace InfoSN.Repositories.Implementations
 
 			while (reader.Read())
 			{
-				Role role = RoleHelper.GenerateRoleFromDb(reader);
+				result = RoleHelpers.GenerateRoleFromDb(reader);
+			}
+
+			return result;
+		}
+
+		public IEnumerable<Role> GetUserRolesById(string userId)
+		{
+			List<Role> result = new List<Role>();
+			string query =
+				$"SELECT * FROM [{_table}] " +
+				$"INNER JOIN [UserRole] ON [{_table}].id_role = [UserRole].id_role " +
+				$"WHERE [UserRole].id_user = '{userId}'";
+
+			_dbConnection.Open();
+
+			IDbCommand command = _dbConnection.CreateCommand();
+			command.CommandText = query;
+			IDataReader reader = command.ExecuteReader();
+
+			while (reader.Read())
+			{
+				Role role = RoleHelpers.GenerateRoleFromDb(reader);
 				result.Add(role);
 			}
 
 			return result;
 		}
+
+
 	}
 }

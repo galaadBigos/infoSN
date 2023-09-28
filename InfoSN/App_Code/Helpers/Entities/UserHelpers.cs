@@ -3,7 +3,7 @@ using System.Data;
 
 namespace InfoSN.App_Code.Helpers.Entities
 {
-    public static class UserHelper
+    public static class UserHelpers
     {
         public static User GenerateUserFromDb(IDataReader reader)
         {

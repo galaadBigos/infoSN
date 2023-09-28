@@ -4,7 +4,7 @@ using System.Data;
 
 namespace InfoSN.App_Code.Helpers.Entities
 {
-	public static class ArticleHelper
+	public static class ArticleHelpers
 	{
 		public static Article GenerateArticleFromDb(IDataReader reader)
 		{

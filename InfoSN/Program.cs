@@ -29,6 +29,8 @@ namespace InfoSN
 
 			builder.Services.AddScoped<IRoleRepository, RoleRepository>();
 
+			builder.Services.AddScoped<IUserRoleRepository, UserRoleRepository>();
+
 			builder.Services.AddScoped<IArticleService, ArticleService>();
 			builder.Services.AddScoped<IArticleRepository, ArticleRepository>();
 

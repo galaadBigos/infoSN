@@ -27,7 +27,7 @@ namespace InfoSN.Services.Implementations
 			foreach (Article article in articles)
 			{
 				User user = users.Where(u => u.Id == article.IdUser).FirstOrDefault()!;
-				DisplayArticleVM model = ArticleHelper.GenerateDisplayArticleVM(article, user);
+				DisplayArticleVM model = ArticleHelpers.GenerateDisplayArticleVM(article, user);
 
 				result.Add(model);
 			}
@@ -42,12 +42,12 @@ namespace InfoSN.Services.Implementations
 			if (article is null)
 				return null;
 
-			return ArticleHelper.GenerateDisplayArticleVM(article);
+			return ArticleHelpers.GenerateDisplayArticleVM(article);
 		}
 
 		public void PostArticle(NewArticleVM model)
 		{
-			Article article = ArticleHelper.CreateArticle(model);
+			Article article = ArticleHelpers.CreateArticle(model);
 			_articleRepository.PostArticle(article);
 		}
 	}

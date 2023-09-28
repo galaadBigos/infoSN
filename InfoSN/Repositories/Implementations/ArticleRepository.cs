@@ -20,7 +20,7 @@ namespace InfoSN.Repositories.Implementations
 		public IEnumerable<Article> GetAllArticles()
 		{
 			List<Article> result = new List<Article>();
-			string query = CRUDHelper.GenerateGetAllQuery(_table);
+			string query = QueryHelpers.GenerateGetAllQuery(_table);
 
 			_dbConnection.Open();
 
@@ -30,7 +30,7 @@ namespace InfoSN.Repositories.Implementations
 
 			while (reader.Read())
 			{
-				Article article = ArticleHelper.GenerateArticleFromDb(reader);
+				Article article = ArticleHelpers.GenerateArticleFromDb(reader);
 				result.Add(article);
 			}
 
@@ -42,7 +42,7 @@ namespace InfoSN.Repositories.Implementations
 		public Article? GetArticle(string id)
 		{
 			Article? result = null;
-			string query = CRUDHelper.GenerateGetByQuery(_table, "id_article", id);
+			string query = QueryHelpers.GenerateGetByQuery(_table, "id_article", id);
 
 			_dbConnection.Open();
 
@@ -52,7 +52,7 @@ namespace InfoSN.Repositories.Implementations
 
 			while (reader.Read())
 			{
-				result = ArticleHelper.GenerateArticleFromDb(reader);
+				result = ArticleHelpers.GenerateArticleFromDb(reader);
 			}
 
 			_dbConnection.Close();
@@ -62,15 +62,18 @@ namespace InfoSN.Repositories.Implementations
 
 		public void PostArticle(Article article)
 		{
-			string query = CRUDHelper.GenerateSecurePostQuery(article, _table);
+			string query = QueryHelpers.GenerateSecurePostQuery(article, _table);
 
 			_dbConnection.Open();
 
 			IDbCommand command = _dbConnection.CreateCommand();
 			command.CommandText = query;
-			CRUDHelper.AddParametersToDbCommand(command, article);
+			QueryHelpers.AddParametersToDbCommand(command, article);
 
-			command.ExecuteNonQuery();
+			if (command.ExecuteNonQuery() <= 0)
+			{
+				throw new Exception();
+			}
 
 			_dbConnection.Close();
 		}

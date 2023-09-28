@@ -3,4 +3,5 @@
 	User,
 	Article,
 	Role,
+	UserRole,
 }

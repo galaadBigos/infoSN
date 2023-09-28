@@ -4,7 +4,7 @@ using System.Reflection;
 
 namespace InfoSN.App_Code.Helpers
 {
-	public static class CRUDHelper
+	public static class QueryHelpers
 	{
 		public static string GenerateGetAllQuery(TableNames tableName)
 		{

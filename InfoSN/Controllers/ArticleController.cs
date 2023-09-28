@@ -41,7 +41,7 @@ namespace InfoSN.Controllers
 			{
 				_articleService.PostArticle(model);
 
-				return RedirectToAction("Home", "Index");
+				return RedirectToAction("Index", "Home");
 			}
 
 			return View(model);

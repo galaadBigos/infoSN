@@ -4,6 +4,7 @@ namespace InfoSN.Repositories.Abstractions
 {
 	public interface IRoleRepository
 	{
-		public IEnumerable<Role> GetRoles(string userId);
+		public IEnumerable<Role> GetUserRolesById(string userId);
+		public Role? GetRoleByName(string roleName);
 	}
 }
