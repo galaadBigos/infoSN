@@ -1,4 +1,4 @@
-﻿using InfoSN.App_Code.Helpers.Entities;
+﻿using InfoSN.App_Code.Helpers.Entities.Implementations;
 using InfoSN.Models.Entities;
 using InfoSN.Models.ViewModel.Articles;
 using InfoSN.Repositories.Abstractions;
@@ -6,7 +6,7 @@ using InfoSN.Services.Abstractions;
 
 namespace InfoSN.Services.Implementations
 {
-	public class ArticleService : IArticleService
+    public class ArticleService : IArticleService
 	{
 		private readonly IArticleRepository _articleRepository;
 		private readonly IUserRepository _userRepository;

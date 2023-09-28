@@ -1,5 +1,5 @@
 ﻿using InfoSN.App_Code.Helpers;
-using InfoSN.App_Code.Helpers.Entities;
+using InfoSN.App_Code.Helpers.Entities.Implementations;
 using InfoSN.Models.Entities;
 using InfoSN.Repositories.Abstractions;
 using System.Data;
@@ -10,11 +10,13 @@ namespace InfoSN.Repositories.Implementations
 	{
 		private readonly IDbConnection _dbConnection;
 		private readonly TableNames _table;
+		private readonly ArticleHelpers _helpers;
 
 		public ArticleRepository(IDbConnection dbConnection)
 		{
 			_dbConnection = dbConnection;
 			_table = TableNames.Article;
+			_helpers = new ArticleHelpers();
 		}
 
 		public IEnumerable<Article> GetAllArticles()
@@ -22,19 +24,7 @@ namespace InfoSN.Repositories.Implementations
 			List<Article> result = new List<Article>();
 			string query = QueryHelpers.GenerateGetAllQuery(_table);
 
-			_dbConnection.Open();
-
-			IDbCommand command = _dbConnection.CreateCommand();
-			command.CommandText = query;
-			IDataReader reader = command.ExecuteReader();
-
-			while (reader.Read())
-			{
-				Article article = ArticleHelpers.GenerateArticleFromDb(reader);
-				result.Add(article);
-			}
-
-			_dbConnection.Close();
+			result = QueryHelpers.GetAllEntities<Article>(_dbConnection, query, _helpers).ToList();
 
 			return result;
 		}
@@ -44,18 +34,7 @@ namespace InfoSN.Repositories.Implementations
 			Article? result = null;
 			string query = QueryHelpers.GenerateGetByQuery(_table, "id_article", id);
 
-			_dbConnection.Open();
-
-			IDbCommand command = _dbConnection.CreateCommand();
-			command.CommandText = query;
-			IDataReader reader = command.ExecuteReader();
-
-			while (reader.Read())
-			{
-				result = ArticleHelpers.GenerateArticleFromDb(reader);
-			}
-
-			_dbConnection.Close();
+			result = QueryHelpers.GetEntity<Article>(_dbConnection, query, _helpers);
 
 			return result;
 		}
