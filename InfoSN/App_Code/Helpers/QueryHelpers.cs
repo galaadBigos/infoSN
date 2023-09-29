@@ -7,17 +7,17 @@ namespace InfoSN.App_Code.Helpers
 {
 	public static class QueryHelpers
 	{
-		public static string GenerateGetAllQuery(TableNames tableName)
+		public static string GenerateGetAllQuery(TableName tableName)
 		{
 			return $"SELECT * FROM [{tableName}];";
 		}
 
-		public static string GenerateGetByQuery(TableNames tableName, string attributName, string attributValue)
+		public static string GenerateGetByQuery(TableName tableName, string attributeName, string attributeValue)
 		{
-			return $"SELECT * FROM [{tableName}] WHERE {attributName} = '{attributValue}';";
+			return $"SELECT * FROM [{tableName}] WHERE {attributeName} = '{attributeValue}';";
 		}
 
-		public static string GenerateSecurePostQuery(Entity entity, TableNames nameTable)
+		public static string GenerateSecurePostQuery(Entity entity, TableName nameTable)
 		{
 			string result = $"INSERT INTO [{nameTable}] VALUES (";
 			PropertyInfo[] properties = entity.GetType().GetProperties();
@@ -69,7 +69,8 @@ namespace InfoSN.App_Code.Helpers
 
 		public static IEnumerable<T> GetAllEntities<T>(IDbConnection dbConnection, string query, EntityHelpers helpers) where T : Entity
 		{
-			List<T> result = new List<T>();
+			List<T> result = new();
+
 			dbConnection.Open();
 
 			IDbCommand command = dbConnection.CreateCommand();
@@ -85,6 +86,22 @@ namespace InfoSN.App_Code.Helpers
 			dbConnection.Close();
 
 			return result;
+		}
+
+		public static void PostEntity(IDbConnection dbConnection, string query, Entity entity)
+		{
+			dbConnection.Open();
+
+			IDbCommand command = dbConnection.CreateCommand();
+			command.CommandText = query;
+			AddParametersToDbCommand(command, entity);
+
+			if (command.ExecuteNonQuery() <= 0)
+			{
+				throw new Exception();
+			}
+
+			dbConnection.Close();
 		}
 	}
 }

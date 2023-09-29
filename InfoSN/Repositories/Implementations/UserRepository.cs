@@ -9,12 +9,12 @@ namespace InfoSN.Repositories.Implementations
 	public class UserRepository : IUserRepository
 	{
 		private readonly IDbConnection _dbConnection;
-		private readonly TableNames _table;
+		private readonly TableName _table;
 
 		public UserRepository(IDbConnection dbConnection)
 		{
 			_dbConnection = dbConnection;
-			_table = TableNames.User;
+			_table = TableName.User;
 		}
 
 		public void PostUser(User user)

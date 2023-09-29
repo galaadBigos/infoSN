@@ -8,12 +8,12 @@ namespace InfoSN.Repositories.Implementations
 	public class UserRoleRepository : IUserRoleRepository
 	{
 		private readonly IDbConnection _dbConnection;
-		private readonly TableNames _table;
+		private readonly TableName _table;
 
 		public UserRoleRepository(IDbConnection dbConnection)
 		{
 			_dbConnection = dbConnection;
-			_table = TableNames.UserRole;
+			_table = TableName.UserRole;
 		}
 
 		public void PostUserRole(UserRole userRole)
