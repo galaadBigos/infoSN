@@ -1,4 +1,4 @@
-﻿public enum TableNames
+﻿public enum TableName
 {
 	User,
 	Article,

@@ -9,12 +9,12 @@ namespace InfoSN.Repositories.Implementations
 	public class RoleRepository : IRoleRepository
 	{
 		private readonly IDbConnection _dbConnection;
-		private readonly TableNames _table;
+		private readonly TableName _table;
 
 		public RoleRepository(IDbConnection dbConnection)
 		{
 			_dbConnection = dbConnection;
-			_table = TableNames.Role;
+			_table = TableName.Role;
 		}
 
 		public Role? GetRoleByName(string roleName)
