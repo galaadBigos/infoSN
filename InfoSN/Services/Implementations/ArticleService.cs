@@ -6,7 +6,7 @@ using InfoSN.Services.Abstractions;
 
 namespace InfoSN.Services.Implementations
 {
-    public class ArticleService : IArticleService
+	public class ArticleService : IArticleService
 	{
 		private readonly IArticleRepository _articleRepository;
 		private readonly IUserRepository _userRepository;
@@ -35,20 +35,36 @@ namespace InfoSN.Services.Implementations
 			return result;
 		}
 
-		public DetailsArticleVM? GetArticle(string id)
+		public DetailsArticleVM? GetDetailsArticleVM(string id)
 		{
 			Article? article = _articleRepository.GetArticle(id);
 
 			if (article is null)
 				return null;
 
-			return ArticleHelpers.GenerateDisplayArticleVM(article);
+			return ArticleHelpers.GenerateDetailsArticleVM(article);
+		}
+
+		public UpdateArticleVM? GetUpdateArticleVM(string id)
+		{
+			Article? article = _articleRepository.GetArticle(id);
+
+			if (article is null)
+				return null;
+
+			return ArticleHelpers.GenerateUpdateArticleVM(article);
 		}
 
 		public void PostArticle(NewArticleVM model)
 		{
 			Article article = ArticleHelpers.CreateArticle(model);
 			_articleRepository.PostArticle(article);
+		}
+
+		public void UpdateArticle(UpdateArticleVM model)
+		{
+			Article article = ArticleHelpers.GenerateArticleFromUpdateArticleVM(model);
+			_articleRepository.UpdateArticle(article);
 		}
 	}
 }

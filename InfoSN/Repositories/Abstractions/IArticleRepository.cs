@@ -7,6 +7,7 @@ namespace InfoSN.Repositories.Abstractions
 		public IEnumerable<Article> GetAllArticles();
 		public Article? GetArticle(string id);
 		public void PostArticle(Article article);
+		public void UpdateArticle(Article article);
 
 	}
 }

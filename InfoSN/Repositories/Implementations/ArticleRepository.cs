@@ -43,5 +43,12 @@ namespace InfoSN.Repositories.Implementations
 
 			QueryHelpers.PostEntity(_dbConnection, query, article);
 		}
+
+		public void UpdateArticle(Article article)
+		{
+			string query = QueryHelpers.GenerateSecureUpdateQuery(article, _table);
+
+			QueryHelpers.UpdateEntity(_dbConnection, query, article);
+		}
 	}
 }
