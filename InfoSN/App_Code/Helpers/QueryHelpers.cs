@@ -1,4 +1,5 @@
-﻿using InfoSN.App_Code.Helpers.Entities.Abstractions;
+﻿using InfoSN.App_Code.Attributes;
+using InfoSN.App_Code.Helpers.Entities.Abstractions;
 using InfoSN.Models.Entities.Abstractions;
 using System.Data;
 using System.Reflection;
@@ -19,17 +20,41 @@ namespace InfoSN.App_Code.Helpers
 
 		public static string GenerateSecurePostQuery(Entity entity, TableName nameTable)
 		{
-			string result = $"INSERT INTO [{nameTable}] VALUES (";
 			PropertyInfo[] properties = entity.GetType().GetProperties();
+
+			string result = $"INSERT INTO [{nameTable}] VALUES (";
 
 			foreach (PropertyInfo property in properties)
 			{
 				result += $"@{property.Name}, ";
 			}
+
 			result = result[0..(result.Length - 2)];
 			result += ");";
 
-			return result.ToString();
+			return result;
+		}
+
+		public static string GenerateSecureUpdateQuery(Entity entity, TableName tableName)
+		{
+			PropertyInfo[] properties = entity.GetType().GetProperties();
+
+			string result = $"UPDATE [{tableName}] SET ";
+
+			foreach (PropertyInfo property in properties)
+			{
+				string? sqlColumnName = property.GetCustomAttribute<SqlColumnNameAttribute>()?.Name;
+				result += $"{sqlColumnName} = @{property.Name}, ";
+			}
+
+			result = result[0..(result.Length - 2)];
+
+			string? idColumnName = properties[0].GetCustomAttribute<SqlColumnNameAttribute>()?.Name;
+			string? idColumnValue = (string?)properties[0].GetValue(entity);
+
+			result += $" WHERE {idColumnName} = '{idColumnValue}';";
+
+			return result;
 		}
 
 		public static void AddParametersToDbCommand(IDbCommand command, Entity entity)
@@ -98,7 +123,24 @@ namespace InfoSN.App_Code.Helpers
 
 			if (command.ExecuteNonQuery() <= 0)
 			{
-				throw new Exception();
+				throw new Exception("The post query did not work");
+			}
+
+			dbConnection.Close();
+		}
+
+		public static void UpdateEntity(IDbConnection dbConnection, string query, Entity entity)
+		{
+			dbConnection.Open();
+			IDbCommand command = dbConnection.CreateCommand();
+
+			command.CommandText = query;
+
+			AddParametersToDbCommand(command, entity);
+
+			if (command.ExecuteNonQuery() <= 0)
+			{
+				throw new Exception("The update query did not work");
 			}
 
 			dbConnection.Close();

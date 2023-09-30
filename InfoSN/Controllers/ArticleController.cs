@@ -18,7 +18,7 @@ namespace InfoSN.Controllers
 		[HttpGet]
 		public IActionResult Details(string id)
 		{
-			DetailsArticleVM? model = _articleService.GetArticle(id);
+			DetailsArticleVM? model = _articleService.GetDetailsArticleVM(id);
 
 			return View(model);
 		}
@@ -45,6 +45,32 @@ namespace InfoSN.Controllers
 			}
 
 			return View(model);
+		}
+
+		[HttpGet]
+		[Authorize(Roles = RoleName.User)]
+		public IActionResult Update(string id)
+		{
+			UpdateArticleVM? model = _articleService.GetUpdateArticleVM(id);
+
+			return View(model);
+		}
+
+		[HttpPost]
+		[Authorize(Roles = RoleName.User)]
+		[ValidateAntiForgeryToken]
+		public IActionResult Update(UpdateArticleVM model)
+		{
+			try
+			{
+				_articleService.UpdateArticle(model);
+				return RedirectToAction("Index", "Home");
+			}
+			catch (Exception)
+			{
+
+				return RedirectToAction("Index", "Home");
+			}
 		}
 	}
 }

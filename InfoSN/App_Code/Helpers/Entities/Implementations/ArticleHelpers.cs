@@ -34,15 +34,41 @@ namespace InfoSN.App_Code.Helpers.Entities.Implementations
 			};
 		}
 
-		public static DetailsArticleVM GenerateDisplayArticleVM(Article article)
+		public static DetailsArticleVM GenerateDetailsArticleVM(Article article)
 		{
 			return new DetailsArticleVM()
 			{
+				Id = article.Id,
 				Title = article.Title,
 				Description = article.Description,
 				PostDate = article.PostDate,
 				EditDate = article.EditDate,
 				IdUser = article.IdUser,
+			};
+		}
+
+		public static UpdateArticleVM GenerateUpdateArticleVM(Article article)
+		{
+			return new UpdateArticleVM()
+			{
+				Id = article.Id,
+				Title = article.Title,
+				Description = article.Description,
+				PostDate = article.PostDate,
+				IdUser = article.IdUser,
+			};
+		}
+
+		public static Article GenerateArticleFromUpdateArticleVM(UpdateArticleVM model)
+		{
+			return new Article()
+			{
+				Id = model.Id,
+				Title = model.Title,
+				Description = model.Description,
+				PostDate = model.PostDate,
+				EditDate = DateTime.Now,
+				IdUser = model.IdUser,
 			};
 		}
 
