@@ -13,6 +13,9 @@
 	{
 		<h2>@Model.Title</h2>
 		<p>@Model.Description</p>
-		<a asp-action="Update" asp-route-id="@Model.Id">Modifier</a>
+		@if (User.Claims.FirstOrDefault(c => c.Type == "UserId")?.Value == Model.IdUser)
+		{
+			<a asp-action="Update" asp-route-id="@Model.Id">Modifier</a>
+		}
 	}
 </div>

@@ -27,14 +27,17 @@ namespace InfoSN.Controllers
 		[Authorize(Roles = RoleName.User)]
 		public IActionResult Create()
 		{
-			NewArticleVM model = new NewArticleVM();
-			model.IdUser = User.Claims.FirstOrDefault(c => c.Type == "UserId")!.Value;
+			NewArticleVM model = new()
+			{
+				IdUser = User.Claims.FirstOrDefault(c => c.Type == "UserId")!.Value
+			};
 
 			return View(model);
 		}
 
 		[HttpPost]
 		[Authorize(Roles = RoleName.User)]
+		[ValidateAntiForgeryToken]
 		public IActionResult Create(NewArticleVM model)
 		{
 			if (ModelState.IsValid)
@@ -51,6 +54,7 @@ namespace InfoSN.Controllers
 		[Authorize(Roles = RoleName.User)]
 		public IActionResult Update(string id)
 		{
+
 			UpdateArticleVM? model = _articleService.GetUpdateArticleVM(id);
 
 			return View(model);
@@ -61,6 +65,9 @@ namespace InfoSN.Controllers
 		[ValidateAntiForgeryToken]
 		public IActionResult Update(UpdateArticleVM model)
 		{
+			if (User.Claims.FirstOrDefault(c => c.Type == "UserId")?.Value != model.IdUser)
+				return Forbid();
+
 			try
 			{
 				_articleService.UpdateArticle(model);
@@ -68,7 +75,6 @@ namespace InfoSN.Controllers
 			}
 			catch (Exception)
 			{
-
 				return RedirectToAction("Index", "Home");
 			}
 		}
