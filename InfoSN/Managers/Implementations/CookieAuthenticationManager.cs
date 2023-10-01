@@ -22,7 +22,7 @@ namespace InfoSN.Managers.Implementations
 			User? user = _userRepository.GetUser(model.Email!);
 			List<Role> roles = _roleRepository.GetUserRolesById(user?.Id!).ToList();
 
-			List<Claim> result = new List<Claim>()
+			List<Claim> result = new()
 			{
 				new Claim(ClaimTypes.Name, model.Email!),
 				new Claim("UserId", user!.Id)

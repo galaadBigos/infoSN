@@ -19,7 +19,7 @@ namespace InfoSN.Services.Implementations
 
 		public IEnumerable<DisplayArticleVM> GetAllArticles()
 		{
-			List<DisplayArticleVM> result = new List<DisplayArticleVM>();
+			List<DisplayArticleVM> result = new();
 
 			IEnumerable<Article> articles = _articleRepository.GetAllArticles();
 			IEnumerable<User> users = _userRepository.GetAllUsers();
