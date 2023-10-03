@@ -67,5 +67,73 @@ namespace InfoSN.UnitTests.Services
 			result.Should().NotBeNull();
 			result.Should().BeEmpty();
 		}
+
+		[Fact]
+		public void GetDetailsArtickeVM_Should_Return_Null_If_Any_Article_From_ArticleRepository()
+		{
+			_articleRepositoryMock.Setup(m => m.GetArticle(It.IsAny<string>())).Returns(() => null);
+
+			DetailsArticleVM? result = _articleService.GetDetailsArticleVM(It.IsAny<string>());
+
+			_articleRepositoryMock.Verify(m => m.GetArticle(It.IsAny<string>()), Times.Once);
+			result.Should().BeNull();
+		}
+
+		[Fact]
+		public void GetDetailsArtickeVM_Should_Return_Details_If_Any_Article_From_ArticleRepository()
+		{
+			Article article = _fixture.Create<Article>();
+			_articleRepositoryMock.Setup(m => m.GetArticle(It.IsAny<string>())).Returns(article);
+
+			DetailsArticleVM? result = _articleService.GetDetailsArticleVM(It.IsAny<string>());
+
+			_articleRepositoryMock.Verify(m => m.GetArticle(It.IsAny<string>()), Times.Once);
+			result.Should().NotBeNull();
+			result.Should().BeOfType<DetailsArticleVM>();
+		}
+
+		[Fact]
+		public void GetUpdateArtickeVM_Should_Return_Null_If_Any_Article_From_ArticleRepository()
+		{
+			_articleRepositoryMock.Setup(m => m.GetArticle(It.IsAny<string>())).Returns(() => null);
+
+			UpdateArticleVM? result = _articleService.GetUpdateArticleVM(It.IsAny<string>());
+
+			_articleRepositoryMock.Verify(m => m.GetArticle(It.IsAny<string>()), Times.Once);
+			result.Should().BeNull();
+		}
+
+		[Fact]
+		public void GetUpdateArtickeVM_Should_Return_Update_If_Any_Article_From_ArticleRepository()
+		{
+			Article article = _fixture.Create<Article>();
+			_articleRepositoryMock.Setup(m => m.GetArticle(It.IsAny<string>())).Returns(article);
+
+			UpdateArticleVM? result = _articleService.GetUpdateArticleVM(It.IsAny<string>());
+
+			_articleRepositoryMock.Verify(m => m.GetArticle(It.IsAny<string>()), Times.Once);
+			result.Should().NotBeNull();
+			result.Should().BeOfType<UpdateArticleVM>();
+		}
+
+		[Fact]
+		public void PostArticle_Should_Call_PostArticle_Method_ArticleRepository()
+		{
+			NewArticleVM model = _fixture.Create<NewArticleVM>();
+
+			_articleService.PostArticle(model);
+
+			_articleRepositoryMock.Verify(m => m.PostArticle(It.IsAny<Article>()), Times.Once);
+		}
+
+		[Fact]
+		public void UpdateArticle_Should_Call_UpdateArticle_Method_ArticleRepository()
+		{
+			UpdateArticleVM model = _fixture.Create<UpdateArticleVM>();
+
+			_articleService.UpdateArticle(model);
+
+			_articleRepositoryMock.Verify(m => m.UpdateArticle(It.IsAny<Article>()), Times.Once);
+		}
 	}
 }
