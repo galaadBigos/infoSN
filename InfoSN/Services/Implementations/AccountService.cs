@@ -25,23 +25,15 @@ namespace InfoSN.Services.Implementations
 		public void PostRegisterVM(RegisterVM model)
 		{
 			User user = CreateUser(model);
-			Role? role = _roleRepository.GetRoleByName(RoleName.User);
-
-			if (role is not null)
+			Role? role = _roleRepository.GetRoleByName(RoleName.User) ?? throw new Exception();
+			UserRole userRole = new UserRole()
 			{
-				UserRole userRole = new UserRole()
-				{
-					IdRole = role.Id,
-					IdUser = user.Id,
-				};
+				IdRole = role.Id,
+				IdUser = user.Id,
+			};
 
-				_userRepository.PostUser(user);
-				_userRoleRepository.PostUserRole(userRole);
-			}
-			else
-			{
-				throw new Exception();
-			}
+			_userRepository.PostUser(user);
+			_userRoleRepository.PostUserRole(userRole);
 		}
 
 		public User CreateUser(RegisterVM model)
