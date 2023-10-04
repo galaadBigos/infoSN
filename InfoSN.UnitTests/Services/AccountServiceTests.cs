@@ -12,6 +12,7 @@ namespace InfoSN.UnitTests.Services
 		private Fixture _fixture;
 
 		private readonly IAccountService _accountService;
+
 		private readonly Mock<IUserRepository> _userRepositoryMock;
 		private readonly Mock<IAccountManager> _accountManagerMock;
 		private readonly Mock<IRoleRepository> _roleRepositoryMock;

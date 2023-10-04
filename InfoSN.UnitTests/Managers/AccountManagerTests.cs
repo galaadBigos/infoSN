@@ -7,20 +7,21 @@ using InfoSN.Repositories.Abstractions;
 using InfoSN.Services.Abstractions;
 using InfoSN.Services.Implementations;
 using Microsoft.Extensions.Options;
-using Moq;
 
 namespace InfoSN.UnitTests.Managers
 {
 	public class AccountManagerTests
 	{
 		private Fixture _fixture = new Fixture();
-		private Mock<IOptions<PasswordHasherOptions>> _optionsMock;
+
 		private IAccountService _accountService;
+		private IAccountManager _accountManager;
+		private PasswordHasherOptions _options;
+
+		private Mock<IOptions<PasswordHasherOptions>> _optionsMock;
 		private Mock<IUserRepository> _userRepositoryMock;
 		private Mock<IRoleRepository> _roleRepositoryMock;
 		private Mock<IUserRoleRepository> _userRoleRepositoryMock;
-		private PasswordHasherOptions _options;
-		private IAccountManager _accountManager;
 
 		public AccountManagerTests()
 		{
