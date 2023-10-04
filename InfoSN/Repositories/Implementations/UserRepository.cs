@@ -10,47 +10,20 @@ namespace InfoSN.Repositories.Implementations
 	{
 		private readonly IDbConnection _dbConnection;
 		private readonly TableName _table;
+		private readonly UserHelpers _helpers;
 
 		public UserRepository(IDbConnection dbConnection)
 		{
 			_dbConnection = dbConnection;
 			_table = TableName.User;
-		}
-
-		public void PostUser(User user)
-		{
-			string query = QueryHelpers.GenerateSecurePostQuery(user, _table);
-
-			_dbConnection.Open();
-
-			IDbCommand command = _dbConnection.CreateCommand();
-			command.CommandText = query;
-			QueryHelpers.AddParametersToDbCommand(command, user);
-
-			if (command.ExecuteNonQuery() <= 0)
-			{
-				throw new Exception();
-			}
-
-			_dbConnection.Close();
+			_helpers = new UserHelpers();
 		}
 
 		public IEnumerable<User> GetAllUsers()
 		{
-			List<User> result = new List<User>();
 			string query = QueryHelpers.GenerateGetAllQuery(_table);
 
-			_dbConnection.Open();
-
-			IDbCommand command = _dbConnection.CreateCommand();
-			command.CommandText = query;
-			IDataReader reader = command.ExecuteReader();
-
-			while (reader.Read())
-			{
-				User user = UserHelpers.GenerateUserFromDb(reader);
-				result.Add(user);
-			}
+			List<User> result = QueryHelpers.GetAllEntities<User>(_dbConnection, query, _helpers).ToList();
 
 			return result;
 		}
@@ -74,6 +47,24 @@ namespace InfoSN.Repositories.Implementations
 			_dbConnection.Close();
 
 			return result;
+		}
+
+		public void PostUser(User user)
+		{
+			string query = QueryHelpers.GenerateSecurePostQuery(user, _table);
+
+			_dbConnection.Open();
+
+			IDbCommand command = _dbConnection.CreateCommand();
+			command.CommandText = query;
+			QueryHelpers.AddParametersToDbCommand(command, user);
+
+			if (command.ExecuteNonQuery() <= 0)
+			{
+				throw new Exception();
+			}
+
+			_dbConnection.Close();
 		}
 	}
 }
